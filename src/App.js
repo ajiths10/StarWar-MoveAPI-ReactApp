@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect ,useState } from "react";
 
 import MoviesList from "./components/MoviesList";
 import "./App.css";
@@ -7,13 +7,13 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, SetIsLoading] = useState(false);
   const [checkError, setError] = useState(null);
-  const [relaodCheck, setReload] = useState(false);
+  const [reload ,setReload] = useState(true);
 
-  const fetchMoviesHandler = async () => {
+  const fetchMoviesHandler = useCallback( async () => {
     setError(null);
     try {
       SetIsLoading(true);
-      const movieFetchValue = await fetch("https://swapi.dev/api/film/"); // correct is "films"
+      const movieFetchValue = await fetch("https://swapi.dev/api/films/"); // correct is "films"
       if (!movieFetchValue.ok) {
         throw new Error("Something went wrong...Retrying...");
       }
@@ -33,12 +33,18 @@ function App() {
     } catch (error) {
       SetIsLoading(false);
       setError(error.message);
-      setTimeout(() => {
-        console.log("reloading");
-        fetchMoviesHandler();
+      
+              setTimeout(() => {
+          fetchMoviesHandler();
+          console.log("reloading");
       }, 5000);
+      
     }
-  };
+  },[]);
+
+  
+
+  useEffect(fetchMoviesHandler,[]);
 
   return (
     <React.Fragment>
@@ -48,7 +54,7 @@ function App() {
       <section>
         {isLoading && <h2>Loading...</h2>}
         {!isLoading && checkError && <h2> {checkError} </h2>}
-        {!isLoading && checkError && <button>Cancel</button>}
+        {!isLoading && checkError && <button  >Cancel</button>}
         {!isLoading && <MoviesList movies={movies} />}
       </section>
     </React.Fragment>
