@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import classes from './Movie.module.css';
+import classes from "./Movie.module.css";
 
 const Movie = (props) => {
-
-  const deletebuttonHandler = () => {
-console.log(props.id)
-     props.onDelete(props.id)
-  }
+  const deletebuttonHandler = (event) => {
+    console.log(props.id);
+    event.preventDefault();
+    props.onDelete(props.id);
+  };
 
   return (
     <li className={classes.movie}>

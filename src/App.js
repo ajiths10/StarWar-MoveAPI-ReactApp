@@ -8,7 +8,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, SetIsLoading] = useState(false);
   const [checkError, setError] = useState(null);
-  const [reload, setReload] = useState(true);
+  const [reload, setReload] = useState(false);
 
 
   const fetchMoviesHandler = useCallback(async () => {
@@ -56,6 +56,7 @@ function App() {
       );
       const data = await response.json();
       console.log(data);
+      fetchMoviesHandler();
     } catch (err) {
       console.log("Something Went wrong!!!!");
     }
@@ -68,6 +69,7 @@ function App() {
     await  fetch(`https://movie-reactapp-default-rtdb.firebaseio.com/movies/${id}.json`, {
         method: "DELETE",
       });
+     fetchMoviesHandler();
     } catch (err) {
       console.log('Delete UnSuccessful!!')
     }
@@ -75,7 +77,7 @@ function App() {
 
 
   useEffect(fetchMoviesHandler, [fetchMoviesHandler]);
- useEffect(fetchMoviesHandler,[deleteHandler])
+
 
   return (
     <React.Fragment>
