@@ -1,0 +1,23 @@
+input{
+    border-color: rgb(230, 228, 228);
+    border-radius: 1px;
+    border-style:double;
+    border-radius: .9rem;
+    width: 550px;
+    height: 35px;
+}
+div{
+    margin-top: 5px;
+    align-items: center;
+    text-align: left;
+    font-weight: bold;
+}
+
+.BTN{
+    margin-left:210px ;
+    margin-top: 10px;
+}
+
+.BigTextArea{
+    height: 120px;
+}
